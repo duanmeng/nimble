@@ -99,3 +99,17 @@ target_link_libraries(
   velox_common_base
   velox_memory
 )
+
+# A/B benchmark: count-based vs size-based (exponent, factor) selection
+# for ALP encoding. Not a folly-benchmark; runs once and prints a comparison
+# table. Feeds NIMBLE_ALP_增强方案.md §8.4.
+add_executable(nimble_alp_selection_ab_benchmark ALPSelectionABBenchmark.cpp)
+
+target_link_libraries(
+  nimble_alp_selection_ab_benchmark
+  nimble_encodings_tests_utils
+  nimble_encodings
+  nimble_common
+  velox_memory
+  Folly::folly
+)
