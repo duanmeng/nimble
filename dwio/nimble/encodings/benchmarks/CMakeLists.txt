@@ -113,3 +113,19 @@ target_link_libraries(
   velox_memory
   Folly::folly
 )
+
+# End-to-end write/read benchmark: encodes each dataset with count-based and
+# size-based (exponent, factor) selection, round-trips through materialize(),
+# reports encoded bytes / compression ratio / wall / CPU / RSS delta /
+# correctness. Baseline for subsequent ALP phases (Phase 1 estimator
+# unification, Phase 2 xsimd fast paths).
+add_executable(nimble_alp_e2e_benchmark ALPWriteReadE2EBenchmark.cpp)
+
+target_link_libraries(
+  nimble_alp_e2e_benchmark
+  nimble_encodings_tests_utils
+  nimble_encodings
+  nimble_common
+  velox_memory
+  Folly::folly
+)
