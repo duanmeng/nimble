@@ -129,3 +129,20 @@ target_link_libraries(
   velox_memory
   Folly::folly
 )
+
+# Mini-benchmark for Dictionary+ALP / RLE+ALP nested selection paths.
+# Drives the real EncodingFactory with allowNestedAlpSelection={off,on} over
+# dict-friendly and RLE-friendly float/double columns and reports encoded
+# bytes, encode/decode wall/cpu, RSS delta, and correctness. Evidence for
+# NIMBLE_ALP_增强方案.md §8.9 that Phase 2 already covers the nested paths.
+add_executable(nimble_alp_nested_benchmark ALPNestedBenchmark.cpp)
+
+target_link_libraries(
+  nimble_alp_nested_benchmark
+  nimble_encodings_tests_utils
+  nimble_encodings
+  nimble_common
+  nimble_tools_common
+  velox_memory
+  Folly::folly
+)
